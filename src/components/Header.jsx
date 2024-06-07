@@ -17,15 +17,21 @@ const Header = () => {
         <header className='bg-[#ccc] py-5'>
             <div className="container">
                 <div className='flex items-center justify-between' >
-                    <div className='flex items-center gap-4'>
+                    <div className='flex items-center gap-4 text-4xl'>
+                        E-com shope
                         {/* <img src={Images.Logo_img} alt="logo" /> */}
                     </div>
                     <nav>
                         <ul className='flex gap-10'>
-                            <Link to='/user/dashboard'>Home</Link>
+                            <Link to='/'>Home</Link>
                             <Link to='/user/products'>Products</Link>
                             <Link to='/user/myorder'>My Order</Link>
-                            <Link to='/user/myorder'>Login</Link>
+                            <Link to='/login'>Login</Link>
+                            <Link to='/signup'>Sign up</Link>
+                            <div className='relative'>
+                                <span className='absolute bg-white -top-3 -right-2 flex items-center justify-center rounded-full w-[20px] h-[20px]'>1</span>
+                            <Link to='/user/myorder'>Cart</Link>
+                            </div>
                         </ul>
                     </nav>
                     {/* <div>

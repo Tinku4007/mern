@@ -20,3 +20,9 @@ const emailValidation = yup
 export const profileValidation = yup.object({
     password: yup.string().required('password is requird')
 })
+export const registrationValidation = yup.object({
+    name: yup.string().required('name is requird'),
+    email: emailValidation,
+    phone: yup.string().required('number is requird'),
+    password: yup.string().required('password is requird')
+})
