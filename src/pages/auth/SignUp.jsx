@@ -2,11 +2,18 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { profileValidation, registrationValidation } from '../../utils/validation/Validation'
+import { signupApi } from '../../utils/api';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(registrationValidation) })
-    const onSubmit = () => {
 
+    const onSubmit = async (data) => {
+        try {
+            const responce = await signupApi(data)
+            console.log(responce)
+        } catch (error) {
+            console.log(error)
+        }
     }
     return (
         <div className='2xl:max-w-[335px] w-full max-w-[270px] mx-auto h-full flex flex-col gap-2'>
