@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { getLocalStorage } from '../utils/LocalStorageUtills';
 
 const Header = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -13,6 +14,8 @@ const Header = () => {
     const logOut = () => {
         localStorage.clear()
     };
+
+    const headerLinks = getLocalStorage('user')
     return (
         <header className='bg-[#ccc] py-5'>
             <div className="container">
@@ -22,17 +25,32 @@ const Header = () => {
                         {/* <img src={Images.Logo_img} alt="logo" /> */}
                     </div>
                     <nav>
-                        <ul className='flex gap-10'>
-                            <Link to='/'>Home</Link>
-                            <Link to='/user/products'>Products</Link>
-                            <Link to='/user/myorder'>My Order</Link>
-                            <Link to='/login'>Login</Link>
-                            <Link to='/signup'>Sign up</Link>
-                            <div className='relative'>
+                        {headerLinks ?
+                            <ul className='flex gap-10'>
+                                <Link to='/'>Home</Link>
+                                <Link to='/add_product'>Add Product</Link>
+                                <Link to='/user/products'>Products</Link>
+                                <Link to='/user/myorder'>My Order</Link>
+                                <div className='relative'>
+                                    <span className='absolute bg-white -top-3 -right-2 flex items-center justify-center rounded-full w-[20px] h-[20px]'>1</span>
+                                    <Link to='/user/myorder'>Cart</Link>
+                                </div>
+                                <Link to={'/login'} onClick={logOut}>Logout</Link>
+                            </ul>
+
+                            :
+                            <ul className='flex gap-10'>
+                                {/* <Link to='/'>Home</Link>
+                                    <Link to='/user/products'>Products</Link> */}
+                                <Link to='/login'>Login</Link>
+                                <Link to='/signup'>Sign up</Link>
+                                {/* <div className='relative'>
                                 <span className='absolute bg-white -top-3 -right-2 flex items-center justify-center rounded-full w-[20px] h-[20px]'>1</span>
-                            <Link to='/user/myorder'>Cart</Link>
-                            </div>
-                        </ul>
+                                <Link to='/user/myorder'>Cart</Link>
+                            </div> */}
+                            </ul>
+
+                        }
                     </nav>
                     {/* <div>
                         <Button

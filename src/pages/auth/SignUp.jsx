@@ -5,16 +5,17 @@ import { profileValidation, registrationValidation } from '../../utils/validatio
 import { signupApi } from '../../utils/api';
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(registrationValidation) })
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(registrationValidation) })
 
     const onSubmit = async (data) => {
         try {
-            const responce = await signupApi(data)
-            console.log(responce)
+            const response = await signupApi(data);
+            reset()
+            console.log(response);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
     return (
         <div className='2xl:max-w-[335px] w-full max-w-[270px] mx-auto h-full flex flex-col gap-2'>
             <h2 className="font-bold text-base heading">Register Now</h2>

@@ -1,30 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { profileValidation } from '../../utils/validation/Validation'
+import { LoginAdmin } from '../../utils/api';
+import { setLocalStorage } from '../../utils/LocalStorageUtills';
 
 const Login = () => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
 
+
     const onSubmit = async (data) => {
-        // setLoading(true)
-        // try {
-        //     const responce = await login(data)
-        //     if (responce?.data?.status) {
-        //         console.log(responce)
-        //         toast.success(responce?.data?.message)
-        //         setLocalStorage('user', responce?.data?.user_data)
-        //         navigate('/user/dashboard')
-        //     } else {
-        //         toast.error(responce?.error?.data?.message)
-        //     }
-        // } catch (error) {
-        //     console.log(error)
-        // } finally {
-        //     setLoading(false)
-        // }
+        setLoading(true)
+        try {
+            const responce = await LoginAdmin(data)
+            if (responce.status) {
+                setLocalStorage('user', responce.data)
+                setLocalStorage('token', responce?.token)
+                navigate('/')
+            } else {
+                console.log(errors)
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(profileValidation) })
