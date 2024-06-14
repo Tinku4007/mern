@@ -11,11 +11,11 @@ const Login = () => {
     const [loading, setLoading] = useState(false)
 
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (dataa) => {
         setLoading(true)
         try {
-            const responce = await LoginAdmin(data)
-            if (responce.status) {
+            const responce = await LoginAdmin(dataa)
+            if (responce?.status) {
                 setLocalStorage('user', responce.data)
                 setLocalStorage('token', responce?.token)
                 navigate('/')

@@ -3,24 +3,26 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { productRegistration } from '../utils/validation/Validation';
 import { AddProductApi } from '../utils/api';
+import { getLocalStorage } from '../utils/LocalStorageUtills';
 
 const AddProduct = () => {
     const [file, setFile] = useState(null);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(productRegistration) });
+    const userId = getLocalStorage("user")._id
 
     const onSubmit = async (data) => {
-        const formData = new FormData();
-        formData.append('productName', data.productName);
-        formData.append('price', data.price);
-        formData.append('replacement', data.replacement);
-        formData.append('imageFieldName', file);
+        console.log(file)
+        const formData = {
+            ...data,
+            user_file: file
+        }
 
         try {
             const response = await AddProductApi(formData);
             if (response.status === 200) {
                 reset();
                 setFile(null);
-                console.log(response.data.message);
+                console.log(response.data);
             }
         } catch (error) {
             console.log(error);
